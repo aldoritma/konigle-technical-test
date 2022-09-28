@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Unity Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 bg-white py-10 mt-20  rounded-xl">
+
+
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div>
+                <h1 class="text-lg">Unity</h1>
+                <div class="w-full border-t border-gray-300 my-5">
+                </div>
+                <h3 class="text-2xl font-bold leading-6 text-gray-900">{{current_date}}</h3>
+                <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+                        <dt class="truncate text-sm font-medium text-gray-500">Total Emails</dt>
+                        <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{{ total_emails }}</dd>
+                    </div>
+                    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+                        <dt class="truncate text-sm font-medium text-gray-500">New This Month</dt>
+                        <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{{total_emails_this_month}}</dd>
+                    </div>
+                    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+                        <dt class="truncate text-sm font-medium text-gray-500">Unsubscribe</dt>
+                        <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{{ total_unsubscribers }}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="mt-8 flex flex-col">
+                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col"
+                                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                            Email</th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Timestamp
+                                        </th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    {% for subscriber in subscribers %}
+                                    <tr v-for="person in people" :key="person.email">
+                                        <td
+                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            {{ subscriber.email }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            {{subscriber.timestamp_string }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            {{subscriber.status }}</td>
+                                        {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="flex flex-1 justify-between sm:justify-end mt-10">
+                            {% if subscribers.has_previous %}
+                            <a href="?page={{ subscribers.previous_page_number }}"
+                                class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                            {% endif %}
+                            {% if subscribers.has_next %}
+                            <a href="?page={{ subscribers.next_page_number }}"
+                                class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
